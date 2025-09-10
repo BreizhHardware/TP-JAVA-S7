@@ -48,10 +48,10 @@ public class Adherent {
     }
 
     public void afficherRessourcesEmpruntees() {
-        System.out.println("Ressources empruntées par " + getNom() + " :");
+        System.out.println("Détails de l'adhérent " + getNom() + " (N°" + getNumeroAdherent() + ") :");
+        System.out.println("Ressources empruntées :");
         for (Ressource r : ressources) {
-            r.afficherDetails();
-            System.out.println("-----");
+            System.out.println(" " + r.getTitre() + " (" + r.getClass().getSimpleName() + ")");
         }
     }
 }
