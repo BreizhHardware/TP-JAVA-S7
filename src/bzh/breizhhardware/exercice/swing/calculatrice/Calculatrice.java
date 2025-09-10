@@ -1,8 +1,7 @@
-package bzh.breizhhardware.exercice.swing;
+package bzh.breizhhardware.exercice.swing.calculatrice;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Calculatrice extends JFrame {
     // Champ d'affichage pour les chiffres et le résultat
