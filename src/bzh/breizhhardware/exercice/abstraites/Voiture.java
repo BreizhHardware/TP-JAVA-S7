@@ -1,7 +1,7 @@
-package breizhhardware.exercice.abstraites;
+package bzh.breizhhardware.exercice.abstraites;
 
-public class Velo extends Transport {
-    public Velo(double vitesseMoyenne) {
+public class Voiture extends Transport {
+    public Voiture(double vitesseMoyenne) {
         // Appel au constructeur de la classe mère
         super(vitesseMoyenne);
     }

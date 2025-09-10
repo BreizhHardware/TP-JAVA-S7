@@ -1,4 +1,4 @@
-package breizhhardware.exercice.abstraites;
+package bzh.breizhhardware.exercice.abstraites;
 
 public abstract class Transport {
     protected double vitesseMoyenne; // en km/h

@@ -1,4 +1,4 @@
-package breizhhardware.exercice.abstraites;
+package bzh.breizhhardware.exercice.abstraites;
 
 public class TestTransport {
     public static void main(String[] args) {

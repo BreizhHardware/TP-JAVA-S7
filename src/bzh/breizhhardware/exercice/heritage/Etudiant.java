@@ -1,4 +1,4 @@
-package breizhhardware.exercice.heritage;
+package bzh.breizhhardware.exercice.heritage;
 
 public class Etudiant extends Personne {
     public Etudiant(String nom) {
