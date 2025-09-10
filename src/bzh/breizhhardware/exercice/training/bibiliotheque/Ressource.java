@@ -48,6 +48,7 @@ public class Ressource {
 
     // Affiche les détails de la ressource
     public void afficherDetails() {
+        System.out.println("Détails de la ressource de type " + this.getClass().getSimpleName() + " :");
         System.out.println("Titre : " + getTitre());
         System.out.println("Annee Publication : " + getAnneePublication());
         System.out.println("Disponible : " + getDisponible());

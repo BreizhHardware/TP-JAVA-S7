@@ -12,6 +12,11 @@ public class Bibliothèque {
         DVD dvd1 = new DVD("Inception", 2010, true, "Christopher Nolan", 148);
         DVD dvd2 = new DVD("The Matrix", 1999, true, "The Wachowskis", 136);
 
+        dvd1.afficherDetails();
+        System.out.println("--------------------");
+        livre1.afficherDetails();
+        System.out.println("--------------------");
+
         // Création d'un adhérent
         Adherent adherent = new Adherent("Jean Dupont", "A12345", new java.util.ArrayList<Ressource>());
 
@@ -19,11 +24,13 @@ public class Bibliothèque {
         adherent.emprunter(livre1);
         // Affichage des ressources empruntées
         adherent.afficherRessourcesEmpruntees();
+        System.out.println("--------------------");
 
         // L'adhérent rend le livre
         adherent.rendre(livre1);
         // Affichage après restitution
         adherent.afficherRessourcesEmpruntees();
+        System.out.println("--------------------");
 
         // L'adhérent emprunte plusieurs ressources
         adherent.emprunter(livre2);
@@ -31,10 +38,12 @@ public class Bibliothèque {
         adherent.emprunter(dvd2);
         // Affichage des ressources empruntées
         adherent.afficherRessourcesEmpruntees();
+        System.out.println("--------------------");
 
         // L'adhérent rend un livre
         adherent.rendre(livre2);
         // Affichage final
         adherent.afficherRessourcesEmpruntees();
+        System.out.println("--------------------");
     }
 }
