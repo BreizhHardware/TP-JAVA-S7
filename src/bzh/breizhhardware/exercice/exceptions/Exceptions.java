@@ -1,6 +1,7 @@
 package bzh.breizhhardware.exercice.exceptions;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Exceptions {
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Exceptions {
             System.out.println("Résultat de la division : " + resultatDouble);
         } catch (ArithmeticException e) {
             System.out.println("Erreur : division par zéro interdite !");
-        } catch (java.util.InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Erreur : saisie invalide, veuillez entrer des entiers !");
         } finally {
             System.out.println("Fin du programme");
