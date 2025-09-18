@@ -1,7 +1,7 @@
 // Classe principale pour tester la gestion de la bibliothèque
 package bzh.breizhhardware.exercice.training.bibiliotheque;
 
-public class Bibliothèque {
+public class Bibliotheque {
     // Méthode principale : point d'entrée du programme
     public static void main(String[] args) {
         // Création de deux livres avec des informations différentes
