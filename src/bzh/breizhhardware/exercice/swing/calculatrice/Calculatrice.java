@@ -6,7 +6,7 @@ import java.awt.*;
 public class Calculatrice extends JFrame {
     // Champ d'affichage pour les chiffres et le résultat
     private final JTextField champAffichage;
-    // Opérateur sélectionné (+, -, x, /)
+    // Opérateur sélectionné (+, -, x, ÷)
     private String operateur = "";
     // Premier nombre saisi
     private double premierNombre = 0;
@@ -31,7 +31,7 @@ public class Calculatrice extends JFrame {
                 "1", "2", "3", "+",
                 "4", "5", "6", "-",
                 "7", "8", "9", "x",
-                "0", ".", "=", "/"
+                "0", ".", "=", "÷"
         };
 
         // Ajout des boutons au panneau
@@ -45,7 +45,7 @@ public class Calculatrice extends JFrame {
         add(panelBoutons, BorderLayout.CENTER);
 
         // Panneau du bas pour les boutons "C" et "Exit"
-        JPanel panelBas = new JPanel(new GridLayout(1, 2, 5, 5));
+        JPanel panelBas = new JPanel(new FlowLayout());
         JButton boutonC = new JButton("C");
         boutonC.setFont(new Font("Arial", Font.BOLD, 18));
         // Action pour effacer tout
@@ -78,7 +78,7 @@ public class Calculatrice extends JFrame {
             }
         }
         // Si c'est un opérateur
-        else if ("+-x/".contains(texte)) {
+        else if ("+-x÷".contains(texte)) {
             premierNombre = Double.parseDouble(champAffichage.getText());
             operateur = texte;
             nouveauNombre = true;
@@ -91,7 +91,7 @@ public class Calculatrice extends JFrame {
                 case "+": resultat = premierNombre + deuxiemeNombre; break;
                 case "-": resultat = premierNombre - deuxiemeNombre; break;
                 case "x": resultat = premierNombre * deuxiemeNombre; break;
-                case "/":
+                case "÷":
                     if (deuxiemeNombre != 0) resultat = premierNombre / deuxiemeNombre;
                     else {
                         champAffichage.setText("Erreur");
