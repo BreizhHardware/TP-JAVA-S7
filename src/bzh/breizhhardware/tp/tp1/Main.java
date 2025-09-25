@@ -43,11 +43,17 @@ public class Main {
             // By default the cut index is the end of the array
             int cutIndex = args.length;
             // If the -s option is present and after the -v option, cut the values at the -s option
-            if (sIndex > vIndex) cutIndex = Math.min(cutIndex, sIndex);
+            if (sIndex > vIndex) {
+                cutIndex = Math.min(cutIndex, sIndex);
+            }
             // If the -o option is present and after the -v option, cut the values at the -o option
-            if (oIndex > vIndex) cutIndex = Math.min(cutIndex, oIndex);
+            if (oIndex > vIndex) {
+                cutIndex = Math.min(cutIndex, oIndex);
+            }
             // If the -sort option is present and after the -v option, cut the values at the -sort option
-            if (sortIndex > vIndex) cutIndex = Math.min(cutIndex, sortIndex);
+            if (sortIndex > vIndex) {
+                cutIndex = Math.min(cutIndex, sortIndex);
+            }
             // Copy the values from the args array to the valueArgs array, from vIndex + 1 to cutIndex (to exclude the -v option itself and the next option if present)
             valueArgs = Arrays.copyOfRange(args, vIndex + 1, cutIndex);
         }
@@ -101,15 +107,20 @@ public class Main {
         int[] vals = new int[max - min + 1];
 
         // Initialize the counts and vals arrays
-        for (int i = 0; i < vals.length; i++) vals[i] = i + min;
-        for (int v : values) counts[v - min]++;
+        for (int i = 0; i < vals.length; i++) {
+            vals[i] = i + min;
+        }
+        for (int v : values) {
+            counts[v - min]++;
+        }
 
         // Sort the counts and vals arrays based on the counts array and the sort order
         for (int i = 0; i < counts.length - 1; i++) {
             // Compare the current count with the next counts
             for (int j = i + 1; j < counts.length; j++) {
                 // If the current count is greater than the next count (for ascending order) or less than (for descending order), swap them
-                boolean swap = sortOrder.equals("asc") ? counts[i] > counts[j] : counts[i] < counts[j];
+                boolean swap = (sortOrder.equals("asc") && counts[i] > counts[j])
+                        || (sortOrder.equals("desc") && counts[i] < counts[j]);
                 if (swap) {
                     int tmpC = counts[i];
                     counts[i] = counts[j];
@@ -224,13 +235,10 @@ public class Main {
         }
 
         // Determine the width needed for formatting
-        int numberWidth = Arrays.stream(vals)
-                .mapToObj(String::valueOf)
-                .mapToInt(String::length)
-                .max()
-                .orElse(1);
+        int max = getMaxValue(values);
+        int numberWidth = String.valueOf(max).length();
         // Also consider the symbol width
-        int symbolWidth = symbol.length();
+        int symbolWidth = String.valueOf(symbol).length();
         // The maximum width needed for formatting
         int maxWidth = Math.max(numberWidth, symbolWidth);
 
