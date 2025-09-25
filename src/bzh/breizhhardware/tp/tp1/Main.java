@@ -27,6 +27,15 @@ public class Main {
             orientation = args[oIndex + 1];
         }
 
+        // Check if the -sort option is present and get its index
+        int sortIndex = getOptionIndex(args, "-sort");
+        // Get the sort order (default is "asc" for ascending)
+        String sortOrder = "null";
+        // If the -sort option is present and has a value after it, get the sort order
+        if (sortIndex != -1 && sortIndex < args.length - 1) {
+            sortOrder = args[sortIndex + 1];
+        }
+
         // Get the values after the -v option
         String[] valueArgs = new String[0];
         // If there are values after the -v option, get them, stopping at the next option if present
@@ -37,6 +46,8 @@ public class Main {
             if (sIndex > vIndex) cutIndex = Math.min(cutIndex, sIndex);
             // If the -o option is present and after the -v option, cut the values at the -o option
             if (oIndex > vIndex) cutIndex = Math.min(cutIndex, oIndex);
+            // If the -sort option is present and after the -v option, cut the values at the -sort option
+            if (sortIndex > vIndex) cutIndex = Math.min(cutIndex, sortIndex);
             // Copy the values from the args array to the valueArgs array, from vIndex + 1 to cutIndex (to exclude the -v option itself and the next option if present)
             valueArgs = Arrays.copyOfRange(args, vIndex + 1, cutIndex);
         }
@@ -47,13 +58,13 @@ public class Main {
         int[] values = getIntegerValues(valueArgs);
         System.out.println(Arrays.toString(values));
         // Get the occurrences of each integer in the array (values are between 0 and 9)
-        int[] occurences = getOccurrences(values);
-        System.out.println(Arrays.toString(occurences));
+        int[][] occurences = getOccurrences(values, sortOrder);
+        System.out.println(Arrays.deepToString(occurences));
         // Print the occurrences histogram
         if (orientation.equals("v")) {
-            printVerticalHistogram(values, symbol);
+            printVerticalHistogram(values, symbol, sortOrder);
         } else {
-            printHorizontalHistogram(values, symbol);
+            printHorizontalHistogram(values, symbol, sortOrder);
         }
     }
 
@@ -75,22 +86,40 @@ public class Main {
     /**
      * Get the occurrences of each integer in the array
      *
-     * @param values the array of integers
-     * @return the occurrences of each integer in the array
+     * @param values    the array of integers
+     * @param sortOrder the sort order ("asc" for ascending, "desc" for descending, "null" for no sorting)
+     * @return a 2D array containing the integer values and their occurrences
      */
-    public static int[] getOccurrences(int[] values) {
+    public static int[][] getOccurrences(int[] values, String sortOrder) {
         // Get the min and max values in the array
         int min = getMinValue(values);
         int max = getMaxValue(values);
         // Create an array to store the occurrences of each integer
-        // The size of the array is max - min + 1 to include all values between min and max
-        int[] occurences = new int[max - min + 1];
-        // Count the occurrences of each integer in the array
-        for (int value : values) {
-            // Increment the occurrence of the integer (value - min) to map the value to the index of the occurrences array
-            occurences[value - min]++;
+        int[] counts = new int[max - min + 1];
+        // Create an array to store the integer values
+        int[] vals = new int[max - min + 1];
+
+        // Initialize the counts and vals arrays
+        for (int i = 0; i < vals.length; i++) vals[i] = i + min;
+        for (int v : values) counts[v - min]++;
+
+        // Sort the counts and vals arrays based on the counts array and the sort order
+        for (int i = 0; i < counts.length - 1; i++) {
+            // Compare the current count with the next counts
+            for (int j = i + 1; j < counts.length; j++) {
+                // If the current count is greater than the next count (for ascending order) or less than (for descending order), swap them
+                boolean swap = sortOrder.equals("asc") ? counts[i] > counts[j] : counts[i] < counts[j];
+                if (swap) {
+                    int tmpC = counts[i];
+                    counts[i] = counts[j];
+                    counts[j] = tmpC;
+                    int tmpV = vals[i];
+                    vals[i] = vals[j];
+                    vals[j] = tmpV;
+                }
+            }
         }
-        return occurences;
+        return new int[][]{vals, counts};
     }
 
     /**
@@ -128,24 +157,21 @@ public class Main {
     /**
      * Print a horizontal histogram of the occurrences of each integer in the array
      *
-     * @param values the array of integers
-     * @param symbol the symbol to use for the histogram
+     * @param values    the array of integers
+     * @param symbol    the symbol to use for the histogram
+     * @param sortOrder the sort order ("asc" for ascending, "desc" for descending, "null" for no sorting)
      */
-    public static void printHorizontalHistogram(int[] values, String symbol) {
-        // Get the occurrences of the integer in the array
-        int[] occurrences = getOccurrences(values);
-        // Get the min and max values in the array
-        int min = getMinValue(values);
-        int max = getMaxValue(values);
-        // Try i from min to max (need the +1 to include max)
-        for (int i = min; i < max + 1; i++) {
-            // Display the integer followed by a space
-            System.out.print(i + " ");
-            // Print a star for each occurrence
-            for (int j = 0; j < occurrences[i - min]; j++) {
-                System.out.print(symbol + " ");
-            }
-            // Print a new line
+    public static void printHorizontalHistogram(int[] values, String symbol, String sortOrder) {
+        // Get the occurrences of each integer in the array
+        int[][] occurrences = getOccurrences(values, sortOrder);
+        // Separate the occurrences into two arrays: one for the integer values and one for their counts
+        int[] vals = occurrences[0];
+        int[] counts = occurrences[1];
+        // Print the histogram
+        for (int i = 0; i < vals.length; i++) {
+            // Print the integer value followed by its occurrences represented by the symbol
+            System.out.print(vals[i] + " ");
+            for (int j = 0; j < counts[i]; j++) System.out.print(symbol + " ");
             System.out.println();
         }
     }
@@ -172,50 +198,53 @@ public class Main {
     /**
      * Print a vertical histogram of the occurrences of each integer in the array
      *
-     * @param values the array of integers
-     * @param symbol the symbol to use for the histogram
+     * @param values    the array of integers
+     * @param symbol    the symbol to use for the histogram
+     * @param sortOrder the sort order ("asc" for ascending, "desc" for descending, "null" for no sorting)
      */
-    public static void printVerticalHistogram(int[] values, String symbol) {
-        // Get the occurrences of the integer in the array
-        int[] occurrences = getOccurrences(values);
-        // Get the min and max values in the array
-        int min = getMinValue(values);
-        int max = getMaxValue(values);
-        // Calculate the width of the largest number for formatting
-        int numberWidth = String.valueOf(max).length();
-        // Calculate the width of the symbol for formatting
-        int separatorWidth = String.valueOf(symbol).length();
-        // Get the maximum width between numberWidth and separatorWidth, to use for formatting
-        int maxWidth = Math.max(numberWidth, separatorWidth);
-        // Get the maximum occurrence to know the height of the histogram
+    public static void printVerticalHistogram(int[] values, String symbol, String sortOrder) {
+        // Get the occurrences of each integer in the array
+        int[][] occurrences = getOccurrences(values, sortOrder);
+        // Separate the occurrences into two arrays: one for the integer values and one for their counts
+        int[] vals = occurrences[0];
+        int[] counts = occurrences[1];
+
+        // Find the maximum occurrence count
         int maxOccurrence = 0;
-        for (int occurrence : occurrences) {
-            maxOccurrence = Math.max(maxOccurrence, occurrence);
+        for (int count : counts) {
+            if (count > maxOccurrence) maxOccurrence = count;
         }
+
+        // Determine the width needed for formatting
+        int numberWidth = Arrays.stream(vals)
+                .mapToObj(String::valueOf)
+                .mapToInt(String::length)
+                .max()
+                .orElse(1);
+        // Also consider the symbol width
+        int symbolWidth = symbol.length();
+        // The maximum width needed for formatting
+        int maxWidth = Math.max(numberWidth, symbolWidth);
+
         // Print the histogram from top to bottom
         for (int i = maxOccurrence; i > 0; i--) {
-            // For each value from min to max
-            for (int j = min; j <= max; j++) {
-                // If the occurrence of the value is greater than or equal to i, print the symbol
-                if (occurrences[j - min] >= i) {
-                    // Print the symbol with the correct width
+            // Print each level of the histogram
+            for (int j = 0; j < vals.length; j++) {
+                // If the count for this value is greater than or equal to the current level, print the symbol
+                if (counts[j] >= i) {
+                    // Use formatted printing to align the symbols
                     System.out.printf("%" + maxWidth + "s ", symbol);
-                    // Print the symbol followed by a space (old version)
-                    //System.out.print(symbol + " ");
                 } else {
-                    // Else print a space (old version)
-                    //System.out.print("  ");
-
-                    // Print spaces to align with the number width
+                    // Otherwise, print spaces to maintain alignment
                     System.out.printf("%" + maxWidth + "s ", " ");
                 }
             }
-            // Print a new line
+            // Move to the next line after printing each level
             System.out.println();
         }
-        // Print the x-axis
-        for (int j = min; j <= max; j++) {
-            System.out.printf("%" + maxWidth + "d ", j);
+        // Print the integer values at the bottom
+        for (int val : vals) {
+            System.out.printf("%" + maxWidth + "d ", val);
         }
         System.out.println();
     }
