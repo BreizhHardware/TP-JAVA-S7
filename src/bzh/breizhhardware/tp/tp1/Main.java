@@ -171,7 +171,9 @@ public class Main {
         for (int i = 0; i < vals.length; i++) {
             // Print the integer value followed by its occurrences represented by the symbol
             System.out.print(vals[i] + " ");
-            for (int j = 0; j < counts[i]; j++) System.out.print(symbol + " ");
+            for (int j = 0; j < counts[i]; j++) {
+                System.out.print(symbol + " ");
+            }
             System.out.println();
         }
     }
