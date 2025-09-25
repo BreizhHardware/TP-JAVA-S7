@@ -31,9 +31,13 @@ public class Main {
         String[] valueArgs = new String[0];
         // If there are values after the -v option, get them, stopping at the next option if present
         if (vIndex < args.length - 1) {
+            // By default the cut index is the end of the array
             int cutIndex = args.length;
+            // If the -s option is present and after the -v option, cut the values at the -s option
             if (sIndex > vIndex) cutIndex = Math.min(cutIndex, sIndex);
+            // If the -o option is present and after the -v option, cut the values at the -o option
             if (oIndex > vIndex) cutIndex = Math.min(cutIndex, oIndex);
+            // Copy the values from the args array to the valueArgs array, from vIndex + 1 to cutIndex (to exclude the -v option itself and the next option if present)
             valueArgs = Arrays.copyOfRange(args, vIndex + 1, cutIndex);
         }
 
@@ -179,6 +183,10 @@ public class Main {
         int max = getMaxValue(values);
         // Calculate the width of the largest number for formatting
         int numberWidth = String.valueOf(max).length();
+        // Calculate the width of the symbol for formatting
+        int separatorWidth = String.valueOf(symbol).length();
+        // Get the maximum width between numberWidth and separatorWidth, to use for formatting
+        int maxWidth = Math.max(numberWidth, separatorWidth);
         // Get the maximum occurrence to know the height of the histogram
         int maxOccurrence = 0;
         for (int occurrence : occurrences) {
@@ -191,7 +199,7 @@ public class Main {
                 // If the occurrence of the value is greater than or equal to i, print the symbol
                 if (occurrences[j - min] >= i) {
                     // Print the symbol with the correct width
-                    System.out.printf("%" + numberWidth + "s ", symbol);
+                    System.out.printf("%" + maxWidth + "s ", symbol);
                     // Print the symbol followed by a space (old version)
                     //System.out.print(symbol + " ");
                 } else {
@@ -199,7 +207,7 @@ public class Main {
                     //System.out.print("  ");
 
                     // Print spaces to align with the number width
-                    System.out.printf("%" + numberWidth + "s ", " ");
+                    System.out.printf("%" + maxWidth + "s ", " ");
                 }
             }
             // Print a new line
@@ -207,7 +215,7 @@ public class Main {
         }
         // Print the x-axis
         for (int j = min; j <= max; j++) {
-            System.out.printf("%" + numberWidth + "d ", j);
+            System.out.printf("%" + maxWidth + "d ", j);
         }
         System.out.println();
     }
