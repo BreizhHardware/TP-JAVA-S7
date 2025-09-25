@@ -29,7 +29,7 @@ public class Main {
 
         // Check if the -sort option is present and get its index
         int sortIndex = getOptionIndex(args, "-sort");
-        // Get the sort order (default is "asc" for ascending)
+        // Get the sort order (default is "null" for no sorting)
         String sortOrder = "null";
         // If the -sort option is present and has a value after it, get the sort order
         if (sortIndex != -1 && sortIndex < args.length - 1) {
