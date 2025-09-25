@@ -174,6 +174,11 @@ public class Main {
             for (int j = 0; j < counts[i]; j++) {
                 System.out.print(symbol + " ");
             }
+            // Calculate the percentage of occurrences
+            int percent = (int) ((counts[i] / (double) values.length) * 100);
+            // Print the percentage at the end of the line
+            System.out.print("(" + percent + " %)");
+            // Move to the next line after printing each value and its occurrences
             System.out.println();
         }
     }
