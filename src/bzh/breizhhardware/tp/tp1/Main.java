@@ -53,7 +53,9 @@ public class Main {
         }
     }
 
-    /** Transform an array of strings into an array of integers
+    /**
+     * Transform an array of strings into an array of integers
+     *
      * @param args the array of strings
      * @return the array of integers
      */
@@ -66,7 +68,9 @@ public class Main {
         return intValues;
     }
 
-    /** Get the occurrences of each integer in the array
+    /**
+     * Get the occurrences of each integer in the array
+     *
      * @param values the array of integers
      * @return the occurrences of each integer in the array
      */
@@ -85,7 +89,9 @@ public class Main {
         return occurences;
     }
 
-    /** Get the minimum value in the array
+    /**
+     * Get the minimum value in the array
+     *
      * @param values the array of integers
      * @return the minimum value in the array
      */
@@ -99,7 +105,9 @@ public class Main {
         return min;
     }
 
-    /** Get the maximum value in the array
+    /**
+     * Get the maximum value in the array
+     *
      * @param values the array of integers
      * @return the maximum value in the array
      */
@@ -113,7 +121,9 @@ public class Main {
         return max;
     }
 
-    /** Print a horizontal histogram of the occurrences of each integer in the array
+    /**
+     * Print a horizontal histogram of the occurrences of each integer in the array
+     *
      * @param values the array of integers
      * @param symbol the symbol to use for the histogram
      */
@@ -129,15 +139,17 @@ public class Main {
             System.out.print(i + " ");
             // Print a star for each occurrence
             for (int j = 0; j < occurrences[i - min]; j++) {
-                System.out.print(symbol);
+                System.out.print(symbol + " ");
             }
             // Print a new line
             System.out.println();
         }
     }
 
-    /** Get the index of an option in the array of arguments
-     * @param args the array of arguments
+    /**
+     * Get the index of an option in the array of arguments
+     *
+     * @param args   the array of arguments
      * @param option the option to search for
      * @return the index of the option in the array, or -1 if not found
      */
@@ -153,7 +165,9 @@ public class Main {
         return -1;
     }
 
-    /** Print a vertical histogram of the occurrences of each integer in the array
+    /**
+     * Print a vertical histogram of the occurrences of each integer in the array
+     *
      * @param values the array of integers
      * @param symbol the symbol to use for the histogram
      */
