@@ -84,7 +84,8 @@ public class Main {
     }
 
     /**
-     * Get the occurrences of each integer in the array
+     * Get the occurrences of each integer in the array, sorted by the occurrences if specified.
+     * It returns a 2D array where the first row contains the integer values and the second row contains their occurrences.
      *
      * @param values    the array of integers
      * @param sortOrder the sort order ("asc" for ascending, "desc" for descending, "null" for no sorting)
