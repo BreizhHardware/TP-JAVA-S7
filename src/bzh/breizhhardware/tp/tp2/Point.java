@@ -25,11 +25,22 @@ public class Point implements Moveable {
         this.y = y;
     }
 
+    /**
+     * Override the toString method to return the point coordinates in the format (x, y)
+     *
+     * @return the point coordinates as a string
+     */
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
 
     @Override
+    /**
+     * Move the point to the given coordinates
+     *
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     */
     public void moveTo(int x, int y) {
         setX(x);
         setY(y);

@@ -32,11 +32,22 @@ public class Rectangle extends Shape {
         this.height = height;
     }
 
+    @Override
+    /**
+     * Print the rectangle information to the console
+     *
+     * Format: Rectangle - center : ({x}, {y}), width : {r}, height : {h}
+     */
     public void print() {
-        //Rectangle - center : ({x}, {y}), width : {r}, height : {h}
         System.out.println("Rectangle - center : " + getCenter() + ", width : " + width + ", height : " + height);
     }
 
+    /**
+     * Draw the rectangle on the given Paint object
+     * The rectangle is drawn using 4 lines
+     *
+     * @param paint the Paint object to draw on
+     */
     public void draw(Paint paint) {
         applyStyle(paint);
         // Draw top line
@@ -70,6 +81,12 @@ public class Rectangle extends Shape {
     }
 
     @Override
+    /**
+     * Get the bounding box of the rectangle
+     * A bounding box is a rectangle that contains the rectangle
+     * The top-left corner of the bounding box is at (center.x - width/2, center.y - height/2)
+     * The size of the bounding box is (width, height)
+     */
     public Rectangle getBoundingBox() {
         int x = center.getX();
         int y = center.getY();

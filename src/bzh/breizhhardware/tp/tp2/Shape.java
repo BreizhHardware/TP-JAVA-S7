@@ -17,21 +17,39 @@ public class Shape implements Moveable {
         this.color = color;
     }
 
+    /**
+     * Print information of all shapes in the array
+     *
+     * @param shapes array of shapes to print
+     */
     public static void printShapes(Shape[] shapes) {
         for (Shape shape : shapes) {
             shape.print();
         }
     }
 
+    /**
+     * Draw all shapes in the array using the given Paint object
+     *
+     * @param shapes array of shapes to draw
+     * @param paint  Paint object to use for drawing
+     */
     public static void drawShapes(Shape[] shapes, Paint paint) {
         for (Shape shape : shapes) {
             shape.draw(paint);
         }
     }
 
+    /**
+     * Calculate the bounding box that contains all shapes in the array
+     * The bounding box is represented as a Rectangle object that encloses all shapes
+     *
+     * @param shapes array of shapes to calculate the bounding box for
+     * @return Rectangle representing the bounding box, or null if the array is empty
+     */
     public static Rectangle getBoundingBox(Shape[] shapes) {
         if (shapes == null || shapes.length == 0) return null;
-        
+
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE;
 
@@ -54,16 +72,32 @@ public class Shape implements Moveable {
 
     }
 
+    /**
+     * Get the bounding box of the shape
+     * This method should be overridden in derived classes
+     *
+     * @return Rectangle representing the bounding box, or null if not implemented
+     */
     public Rectangle getBoundingBox() {
-        // Ne fait rien, méthode à surcharger dans les classes filles
         return null;
     }
 
     @Override
+    /**
+     * Move the shape center to the specified coordinates
+     *
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     */
     public void moveTo(int x, int y) {
         center.moveTo(x, y);
     }
 
+    /**
+     * Apply the style (color and line width) to the given Paint object
+     *
+     * @param paint the Paint object to apply the style to
+     */
     protected void applyStyle(Paint paint) {
         paint.setColor(color);
         paint.setLineWidth(lineWidth);
@@ -85,10 +119,6 @@ public class Shape implements Moveable {
         this.color = color;
     }
 
-    public void draw(Paint paint) {
-        // Ne fait rien, méthode à surcharger dans les classes filles
-    }
-
     public Point getCenter() {
         return center;
     }
@@ -97,6 +127,19 @@ public class Shape implements Moveable {
         this.center = center;
     }
 
+    /**
+     * Draw the shape on the given Paint object
+     * This method should be overridden in derived classes
+     *
+     * @param paint the Paint object to draw on
+     */
+    public void draw(Paint paint) {
+    }
+
+    /**
+     * Print the shape information to the console
+     * This method should be overridden in derived classes
+     */
     public void print() {
         System.out.println("Shape - center : " + center);
     }
