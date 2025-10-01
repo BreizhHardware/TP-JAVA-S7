@@ -31,5 +31,26 @@ public class Main {
         turtle.setLineWidth(1);
         // Draw a tree
         Tree.drawTree(turtle, 100, 5);
+
+        turtle.penUp();
+        turtle.moveTo(300, 200);
+        turtle.penDown();
+        turtle.setColor(java.awt.Color.MAGENTA);
+        turtle.setLineWidth(1);
+        Tree.drawTree(turtle, 100, 5, 4.0 / 5.0, 15, 15);
+
+        turtle.penUp();
+        turtle.moveTo(300, 400);
+        turtle.penDown();
+        turtle.setColor(java.awt.Color.ORANGE);
+        turtle.setLineWidth(1);
+        Tree.drawTree(turtle, 100, 5, 2.0 / 3.0, 30, 30);
+
+        turtle.penUp();
+        turtle.moveTo(0, 300);
+        turtle.penDown();
+        turtle.setColor(java.awt.Color.CYAN);
+        turtle.setLineWidth(1);
+        Tree.drawTree(turtle, 100, 5, 2.0 / 3.0, -5, 30);
     }
 }
