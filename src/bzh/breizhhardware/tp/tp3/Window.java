@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Window extends JFrame implements ActionListener {
-    public JLabel okLabel;
-    public JLabel cancelLabel;
+    private JLabel okLabel;
+    private JLabel cancelLabel;
 
     private JButton okButton;
     private JButton cancelButton;
@@ -43,6 +43,14 @@ public class Window extends JFrame implements ActionListener {
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    public JLabel getCancelLabel() {
+        return cancelLabel;
+    }
+
+    public JLabel getOkLabel() {
+        return okLabel;
     }
 
     @Override

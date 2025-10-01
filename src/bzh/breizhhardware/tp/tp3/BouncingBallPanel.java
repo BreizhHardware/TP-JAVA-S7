@@ -1,9 +1,14 @@
 package bzh.breizhhardware.tp.tp3;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import java.awt.Color;
+import java.awt.Graphics;
 
-public class BouncingBallPanel extends JPanel {
+public class BouncingBallPanel extends JPanel implements Runnable, ChangeListener {
 
     // ball state
     private static final Color BALL_COLOR = Color.BLUE;
@@ -26,13 +31,13 @@ public class BouncingBallPanel extends JPanel {
         this.y = BALL_SIZE;
         this.down = true;
 
-        // animation thread
-        // TODO : compléter
-        //this.animationThread = ...;
+        // animation thread (not started)
+        this.animationThread = null;
 
         // ball speed
         this.speed = INITIAL_SPEED;
         this.speedSlider = new JSlider(JSlider.HORIZONTAL, 0, MAX_SPEED, this.speed);
+        this.speedSlider.addChangeListener(this);
 
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -59,9 +64,10 @@ public class BouncingBallPanel extends JPanel {
     }
 
     public void animate() {
-
-        // lance le Thread d'animation
-        // TODO : compléter
+        if (this.animationThread == null || !this.animationThread.isAlive()) {
+            this.animationThread = new Thread(this);
+            this.animationThread.start();
+        }
     }
 
     // méthode de dessin appelée par repaint()
@@ -76,7 +82,6 @@ public class BouncingBallPanel extends JPanel {
     // boucle d'animation
     public void run() {
         while (true) {
-
             try {
                 Thread.sleep(ANIMATION_STEP);
             } catch (InterruptedException exception) {
@@ -85,6 +90,11 @@ public class BouncingBallPanel extends JPanel {
 
             this.moveBall();
         }
+    }
+
+    @Override
+    public void stateChanged(javax.swing.event.ChangeEvent e) {
+        this.speed = this.speedSlider.getValue();
     }
 
 }
