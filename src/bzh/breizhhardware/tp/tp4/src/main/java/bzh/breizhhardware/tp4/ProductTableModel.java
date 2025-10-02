@@ -27,6 +27,12 @@ public class ProductTableModel extends AbstractTableModel {
         return columnNames[col];
     }
 
+    /*
+        * Get the value at the specified row and column
+        * @param row the row index
+        * @param col the column index
+        * @return the value at the specified cell
+     */
     @Override
     public Object getValueAt(int row, int col) {
         Product p = products.get(row);
@@ -38,11 +44,23 @@ public class ProductTableModel extends AbstractTableModel {
         }
     }
 
+    /*
+        * Make only the quantity column editable
+        * @param row the row index
+        * @param col the column index
+        * @return true if the cell is editable, false otherwise
+     */
     @Override
     public boolean isCellEditable(int row, int col) {
-        return col == 2; // Seule la colonne quantité est éditable
+        return col == 2; 
     }
 
+    /*
+        * Set the value at the specified row and column
+        * @param value the new value
+        * @param row the row index
+        * @param col the column index
+     */
     @Override
     public void setValueAt(Object value, int row, int col) {
         if (col == 2) {
@@ -51,10 +69,19 @@ public class ProductTableModel extends AbstractTableModel {
         }
     }
 
+    /*
+        * Get the product at the specified row
+        * @param row the row index
+        * @return the product at the specified row
+     */
     public Product getProductAt(int row) {
         return products.get(row);
     }
 
+    /*
+        * Set the products list and notify the table that the data has changed
+        * @param products the new list of products
+     */
     public void setProducts(ArrayList<Product> products) {
         this.products.clear();
         this.products.addAll(products);

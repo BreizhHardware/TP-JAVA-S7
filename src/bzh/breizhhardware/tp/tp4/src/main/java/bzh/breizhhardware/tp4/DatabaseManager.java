@@ -40,6 +40,9 @@ public class DatabaseManager {
         this.password = password;
     }
 
+    /*
+        * Print all products from the database in the console
+     */
     public void printProducts() {
         ArrayList<Product> products = fetchProducts();
         for (Product product : products) {
@@ -47,6 +50,11 @@ public class DatabaseManager {
         }
     }
 
+    /*
+        * Fetch all products from the database and return them as an ArrayList
+        *
+        * @return ArrayList<Product> or null if an error occurs
+     */
     public ArrayList<Product> fetchProducts() {
         ArrayList<Product> products = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -77,6 +85,12 @@ public class DatabaseManager {
         return products;
     }
 
+    /*
+        * Update the quantity of a product in the database
+        *
+        * @param id The id of the product to update
+        * @param quantity The new quantity of the product
+     */
     public void updateProductQuantity(int id, int quantity) {
         String sql = "UPDATE articles SET quantite = ? WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -88,5 +102,4 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
 }
