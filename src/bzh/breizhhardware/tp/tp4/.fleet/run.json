@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "type": "maven-run",
+            "name": "Maven-run configuration",
+            "mainClass": "bzh.breizhhardware.tp4.Main"
+        }
+    ]
+}
