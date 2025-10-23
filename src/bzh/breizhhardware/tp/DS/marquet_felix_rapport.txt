@@ -1,0 +1,8 @@
+Dans ce code tous fonctionne.
+
+Choix technique:
+- Création d'un class Main pour tester les fonction (Main.java)
+- Utilisation de scanner pour récupérer les entrée utilisateur (Application.java)
+- Utilisation d'un modele de table héritant de AbstractTableModel (BibliotequeTableModel.java)
+- Ajout de plusieurs méthode de trie aditionnel (titre et année) (Bibliotheque.java)
+- Utilisation de la lib Comparator de java pour trier la bibliotheque (Bibliotheque.java)
